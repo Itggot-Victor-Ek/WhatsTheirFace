@@ -6,7 +6,7 @@ config :pluggy,
   db: [
     pool: DBConnection.Poolboy,
     pool_size: 20, 
-    host: "localhost", # or address
+    hostname: "localhost", # or address
     database: "testdb",
     username: "testuser",
     password: "test"

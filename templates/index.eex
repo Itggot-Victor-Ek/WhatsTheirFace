@@ -1,2 +1,17 @@
 <h1>Whats Their Face</h1>
 
+<%= if user do %>
+	<form action="/users/logout" method="post">
+		<button type="submit">Log Out</button>
+	</form>
+<% else %>
+
+<form action="/users/login" method="post">
+	<label for="username">Username</label>
+	<input type="text" name="username" id="username" />
+	<label for="password">Password</label>
+	<input type="password" name="pwd" id="password" />
+	<button type="submit">Log In</button>
+</form>
+<a href="/register">Register Account</a>
+<% end %>
