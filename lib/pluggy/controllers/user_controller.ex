@@ -30,11 +30,11 @@ defmodule Pluggy.UserController do
 		end
 	end
 
-	defp register_confirmed(conn, params) do
+	defp register_confirmed(conn, params, first_name, [last_name | _]) do
 		IO.puts "register_confirmed"
 		hashed_password = Bcrypt.hash_pwd_salt(params["pwd"])
 		IO.puts "det var inget fel på hashen"
-		Postgrex.query!(DB, "INSERT INTO users (username, password_hashed, email) VALUES ($1, $2, $3)", [params["username"], hashed_password, params["email"]], [pool: DBConnection.Poolboy])
+		Postgrex.query!(DB, "INSERT INTO users (username, password_hashed, email, first_name, last_name) VALUES ($1, $2, $3, $4, $5)", [params["username"], hashed_password, params["email"], first_name, last_name], [pool: DBConnection.Poolboy])
      	redirect(conn, "/")
 	end
 
@@ -42,16 +42,17 @@ defmodule Pluggy.UserController do
 		username = params["username"]
 		password = params["pwd"]
 		email = String.split(params["email"],"@")
+
 		[hd|tl] = email
-		IO.puts "register"
-		IO.inspect username
-		IO.inspect Postgrex.query!(DB, "SELECT email FROM confirmed_emails WHERE email LIKE $1", tl, [pool: DBConnection.Poolboy]).rows
-		IO.inspect Postgrex.query!(DB, "SELECT username FROM users WHERE username = $1", [username], [pool: DBConnection.Poolboy]).rows
+		[first_name | last_name] = String.split(params["email"], ~r/([@].*|[.\d])/)
+		IO.inspect first_name
+		IO.inspect last_name
+
 		cond do
 		Postgrex.query!(DB, "SELECT username FROM users WHERE username = $1", [username], [pool: DBConnection.Poolboy]).rows == [[username]] ->	redirect(conn, "/register")
 		#IO.inspect "hejhej"
-		Postgrex.query!(DB, "SELECT email FROM confirmed_emails WHERE email LIKE $1", tl, [pool: DBConnection.Poolboy]).rows != [tl] -> redirect(conn, "/register") 
-		true -> register_confirmed(conn, params)
+		Postgrex.query!(DB, "SELECT email FROM confirmed_emails WHERE email LIKE $1", tl, [pool: DBConnection.Poolboy]).rows != [tl] -> redirect(conn, "/register")
+		true -> register_confirmed(conn, params, first_name, last_name)
 		end
 	end
 
