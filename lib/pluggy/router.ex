@@ -22,6 +22,8 @@ defmodule Pluggy.Router do
   plug(:match)
   plug(:dispatch)
 
+  get "/",                  do: MainController.index(conn)
+
   get "/fruits",           do: FruitController.index(conn)
   get "/fruits/new",       do: FruitController.new(conn)
   get "/fruits/:id",       do: FruitController.show(conn, id)
