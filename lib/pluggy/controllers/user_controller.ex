@@ -10,7 +10,7 @@ defmodule Pluggy.UserController do
 		password = params["pwd"]
 
 		result =
-		  Postgrex.query!(DB, "SELECT id, password_hash FROM users WHERE username = $1", [username],
+		  Postgrex.query!(DB, "SELECT id, password_hashed FROM users WHERE username = $1", [username],
 		    pool: DBConnection.Poolboy
 		  )
 
