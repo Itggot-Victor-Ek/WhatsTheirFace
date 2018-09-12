@@ -23,11 +23,14 @@ defmodule Pluggy.Router do
   plug(:dispatch)
 
   get "/",                 do: MainController.index(conn)
-  get "/register",   do: MainController.register(conn)
+  get "/register",         do: MainController.register(conn)
   get "/fruits",           do: FruitController.index(conn)
   get "/fruits/new",       do: FruitController.new(conn)
   get "/fruits/:id",       do: FruitController.show(conn, id)
   get "/fruits/:id/edit",  do: FruitController.edit(conn, id)
+
+  get "/games/start",       do: GameController.start(conn)
+  post "/game/quiz",        do: GameController.quiz(conn, conn.body_params)
   
   post "/fruits",          do: FruitController.create(conn, conn.body_params)
  
@@ -53,3 +56,6 @@ defmodule Pluggy.Router do
     )
   end
 end
+
+
+# D66B2-AD20-A05F
