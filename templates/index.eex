@@ -4,6 +4,7 @@
 	<form action="/users/logout" method="post">
 		<button type="submit">Log Out</button>
 	</form>
+	<a href="/games/start">Games</a>
 <% else %>
 
 <form action="/users/login" method="post">

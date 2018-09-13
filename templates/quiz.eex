@@ -1,0 +1,12 @@
+<div class="slidecontainer">
+  <input type="range" min="100" max="400" value="128" class="slider" id="myRange"> change picture size!
+</div>
+
+<form action="/rectify_answers" method="post">
+    <%= for picture <- pictures do %>
+        <img class="resize" src="/images/<%=picture%>">
+        <input type="text">
+
+    <% end %>
+    <button type="submit">Send</button>
+</form>

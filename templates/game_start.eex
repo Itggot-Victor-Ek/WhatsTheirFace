@@ -1,0 +1,12 @@
+ <%= if groups != [] do %>
+    <form action="/games/quiz" method="post">
+            <select name="selected_group">
+                    <%= for group <- groups do %>
+                        <option value=<%=group%>><%=group%></option>
+                    <% end %>
+            </select>
+        <button type="submit">Continue</button>
+    </form>
+<% else %>
+    <p>Please create a group first</p>
+<% end %>
