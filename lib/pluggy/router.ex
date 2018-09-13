@@ -32,7 +32,7 @@ defmodule Pluggy.Router do
   get "/games/start",      do: GameController.start(conn)
   get "/games/quiz",       do: GameController.quiz_start(conn)
   post "/games/quiz",      do: GameController.quiz(conn, conn.body_params)
-  post "rectify_answers"   do: GameController.rectify_answers(conn, conn.body_params)
+  post "rectify_answers",   do: GameController.rectify_answers(conn, conn.body_params)
   
   post "/fruits",          do: FruitController.create(conn, conn.body_params)
  
