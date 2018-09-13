@@ -45,6 +45,8 @@ defmodule Pluggy.Router do
   post "/users/logout",    do: UserController.logout(conn)
   post "/users/register",  do: UserController.register(conn, conn.body_params)
 
+  post "/change_admin_status", do: AdminController.change_status(conn, conn.body_params)
+
   match _ do
     send_resp(conn, 404, "oops")
   end

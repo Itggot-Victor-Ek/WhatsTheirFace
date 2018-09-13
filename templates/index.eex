@@ -4,7 +4,28 @@
 	<form action="/users/logout" method="post">
 		<button type="submit">Log Out</button>
 	</form>
+	<%= if admin_status do %>
+		<% [[hd|_]] = admin_status %>
+		<p>Hej</p>
+		<%= if hd == 1 do %>
+			<p>Du är en lärare</p>
+		<% else %>
+			<%= if hd == 2 do %>
+				<p>Du är rektorn</p>
+				<form action="/change_admin_status" method="post">
+					<input type="text" name="name">
+					<select name="new_admin_status">
+						<option value="0">Elev</option>
+						<option value="1">Lärare</option>
+						<option value="2">Rektor</option>
+					</select>
+					<input type="submit">
+			<% end %>
+		<% end %>
+	<% end %>
 <% else %>
+
+	
 
 <form action="/users/login" method="post">
 	<label for="username">Username</label>
